@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/">
+        <file>assets/datas/villes.csv</file>
+        <file>assets/datas/temps.csv</file>
+        <file>assets/datas/metropole-version-simplifiee.geojson</file>
+        <file>assets/datas/regions-version-simplifiee.geojson</file>
+    </qresource>
+</RCC>

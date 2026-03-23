@@ -6,6 +6,8 @@
 #include "src/InteractiveMap/InteractiveView.hpp"
 #include "InteractiveMap/ControlPanel/ControlPanelTabWidget.hpp"
 
+#include "Options/OptionsWindow.hpp"
+
 #include <QSplitter>
 #include <QTabWidget>
 #include <QVBoxLayout>
@@ -24,7 +26,9 @@ private:
     static const int WINDOW_WIDTH, WINDOW_HEIGHT;
     static Map map;
 
-    QSplitter *splitter;
+    OptionsWindow* optionsWindow;
+
+    QSplitter * const splitter;
 
     MapScene * const mapScene;
     InteractiveView * const mapView;
@@ -51,5 +55,8 @@ public:
     inline MapScene* getMapScene() const { return this->mapScene; };
     inline InteractiveView* getMapView() const { return this->mapView; };
     inline ControlPanelTabWidget* getControlPanel() const { return this->controlPanel; };
+
+public slots:
+    void openOptions();
 };
 #endif // NAVYRAWINDOW_H

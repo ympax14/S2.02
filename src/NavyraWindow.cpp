@@ -1,6 +1,7 @@
 #include "NavyraWindow.hpp"
 
 #include "utils/Deserialize.hpp"
+#include "Options/OptionsWindow.hpp"
 
 #include <QStatusBar>
 #include <QMenuBar>
@@ -12,6 +13,8 @@ Map NavyraWindow::map;
 
 NavyraWindow::NavyraWindow(QWidget * const parent) :
     QMainWindow(parent),
+
+    optionsWindow(nullptr),
 
     splitter(new QSplitter(Qt::Horizontal, this)),
 
@@ -40,7 +43,7 @@ void NavyraWindow::setupWindow() {
     this->setMinimumSize(NavyraWindow::WINDOW_WIDTH, NavyraWindow::WINDOW_HEIGHT);
 
     // Un bleu clair naturel pour l'océan
-    this->mapScene->setBackgroundBrush(QBrush(QColor("#86CADC")));
+    this->mapScene->setBackgroundBrush(QBrush(QColor(0x86CADC)));
 
     // Côté gauche : La carte
     this->splitter->addWidget(this->mapView);
@@ -63,8 +66,26 @@ void NavyraWindow::setupControlPanel() {
     this->splitter->addWidget(controlPanel);
 }
 
+void NavyraWindow::openOptions() {
+    if (this->optionsWindow != nullptr) return;
+
+    qDebug() << "[Options] Ouverture de la fenêtre des options";
+
+    this->optionsWindow = new OptionsWindow;
+
+    this->optionsWindow->show();
+
+    QObject::connect(this->optionsWindow, &OptionsWindow::onClose, this, [this]() {
+        qDebug() << "[Options] Fermeture de la fenêtre des options";
+
+        delete this->optionsWindow;
+        this->optionsWindow = nullptr;
+    });
+}
+
 void NavyraWindow::setupMenuBar() {
     this->menuBar()->addAction(this->optionsAction);
+    QObject::connect(this->optionsAction, &QAction::triggered, this, &NavyraWindow::openOptions);
 }
 
 void NavyraWindow::setupStatusBar() {

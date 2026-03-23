@@ -20,6 +20,7 @@ SOURCES += \
     src/Map/Map.cpp \
     src/Map/Path/Path.cpp \
     src/Map/Route/Route.cpp \
+    src/Options/OptionsWindow.cpp \
     src/main.cpp \
     src/NavyraWindow.cpp \
     src/utils/Deserialize.cpp
@@ -39,6 +40,7 @@ HEADERS += \
     src/Map/Path/Path.hpp \
     src/Map/Route/Route.hpp \
     src/NavyraWindow.hpp \
+    src/Options/OptionsWindow.hpp \
     src/utils/Deserialize.hpp
 
 # Default rules for deployment.

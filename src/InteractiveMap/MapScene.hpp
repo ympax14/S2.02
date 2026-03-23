@@ -23,13 +23,15 @@ private:
     std::vector<QGraphicsLineItem*> routesItems;
     std::vector<QGraphicsItem*> rideItems;
 public:
-    static const double MIN_LAT;   // sud
-    static const double MAX_LAT;   // nord
-    static const double MIN_LNG;   // ouest
-    static const double MAX_LNG;    // est
+    static const double MIN_LAT; // sud
+    static const double MAX_LAT; // nord
+    static const double MIN_LNG; // ouest
+    static const double MAX_LNG; // est
 
     static const double SCENE_WIDTH;
     static const double SCENE_HEIGHT;
+
+    static bool HIDE_CITIES;
 
     static const int VILLAGE_SIZE;
     static const double VILLAGE_DOT_VISIBLE_AT;
@@ -47,7 +49,8 @@ public:
     static const double BIG_CITY_DOT_VISIBLE_AT;
     static const double BIG_CITY_LABEL_VISIBLE_AT;
 
-    static const int PATH_SIZE;
+    static bool HIDE_PATHS;
+    static double PATH_SIZE;
 
     MapScene(Map* _map, QObject * const parent = nullptr);
 

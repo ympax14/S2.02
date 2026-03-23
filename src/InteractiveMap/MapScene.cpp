@@ -17,6 +17,8 @@ const double MapScene::MAX_LNG = 9.7; // est
 const double MapScene::SCENE_WIDTH = 3000;
 const double MapScene::SCENE_HEIGHT = 2000;
 
+bool MapScene::HIDE_CITIES = false;
+
 const int MapScene::VILLAGE_SIZE = 10;
 const double MapScene::VILLAGE_DOT_VISIBLE_AT = 2.5;
 const double MapScene::VILLAGE_LABEL_VISIBLE_AT = 3.5;
@@ -33,7 +35,8 @@ const int MapScene::BIG_CITY_SIZE = 36;
 const double MapScene::BIG_CITY_DOT_VISIBLE_AT = 0.0; // Idem...
 const double MapScene::BIG_CITY_LABEL_VISIBLE_AT = 0.0; // Idem...
 
-const int MapScene::PATH_SIZE = 1;
+bool MapScene::HIDE_PATHS = false;
+double MapScene::PATH_SIZE = 0.7;
 
 MapScene::MapScene(Map* _map, QObject * const parent) :
     QGraphicsScene{parent},
@@ -94,9 +97,10 @@ void MapScene::buildBackground(const bool& clearScene) {
     if (clearScene) {
         for (QGraphicsPolygonItem* item : this->backgroundItems)
             this->removeItem(item);
-    }
 
-    this->backgroundItems.clear();
+        this->backgroundItems.clear();
+        this->update();
+    }
 
     // Trait de séparation des régions
     QPen regionPen(QColor(Qt::black), 1);
@@ -123,11 +127,14 @@ void MapScene::buildBackground(const bool& clearScene) {
 
 void MapScene::buildRoutes(const bool& clearScene) {
     if (clearScene) {
-        for (CityItem* item : this->cityItems)
+        for (QGraphicsLineItem* item : this->routesItems)
             this->removeItem(item);
+
+        this->routesItems.clear();
+        this->update();
     }
 
-    this->routesItems.clear();
+    if (MapScene::HIDE_PATHS) return;
 
     // Un trait gris foncé pour représenter les routes
     QPen routePen(QColor("#7F8C8D"), MapScene::PATH_SIZE);
@@ -174,9 +181,12 @@ void MapScene::buildCities(const bool& clearScene) {
     if (clearScene) {
         for (CityItem* item : this->cityItems)
             this->removeItem(item);
+
+        this->cityItems.clear();
+        this->update();
     }
 
-    this->cityItems.clear();
+    if (MapScene::HIDE_CITIES) return;
 
     for (const auto& [countryName, countryPtr] : this->map->getCountries()) {
         for (const auto& [adminName, adminPtr] : countryPtr->getAdministrations()) {
@@ -200,9 +210,10 @@ void MapScene::buildRide(const bool& clearScene) {
     if (clearScene) {
         for (QGraphicsItem* item : this->rideItems)
             this->removeItem(item);
-    }
 
-    this->rideItems.clear();
+        this->rideItems.clear();
+        this->update();
+    }
 
     const Route* currentRide = NavyraWindow::getMap().getCurrentRide();
 

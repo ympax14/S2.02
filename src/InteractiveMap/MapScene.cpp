@@ -264,7 +264,7 @@ void MapScene::buildRide(const bool& clearScene) {
             weightText->setPos(-textRect.width() / 2.0, -textRect.height() / 2.0);
         }
 
-        qDebug() << "[InteractiveMap] Trajet dessiné ! De" << currentRide->getSegments()[0].getFrom()->getName() << "à" << currentRide->getSegments()[currentRide->getSegments().size()-1].getTo()->getName() << QString("(%1km)").arg(currentRide->getTotalWeight());
+        qDebug() << "[InteractiveMap] Trajet dessiné ! De" << currentRide->getSegments()[0].getFrom()->getName() << "à" << currentRide->getSegments()[currentRide->getSegments().size()-1].getTo()->getName() << QString("(%1min)").arg(currentRide->getTotalWeight());
     }
 }
 

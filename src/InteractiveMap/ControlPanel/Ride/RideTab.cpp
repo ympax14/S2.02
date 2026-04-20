@@ -178,7 +178,7 @@ void RideTab::drawDirectedEdge(QPointF start, QPointF end, int weight) {
     anchor->setZValue(3);
     this->ridePreviewScene->addItem(anchor);
 
-    QGraphicsSimpleTextItem* weightText = new QGraphicsSimpleTextItem(QString::number(weight) + "km", anchor);
+    QGraphicsSimpleTextItem* weightText = new QGraphicsSimpleTextItem(QString::number(weight) + "min", anchor);
     QFont font = weightText->font();
     font.setBold(true);
     font.setPointSize(10);
